@@ -1,7 +1,12 @@
 // TASK: import helper functions from utils
 // TASK: import initialData
 
+//  Gets funtions from utils
+import { getTasks, saveTasks, createNewTask, patchTask, putTask, deleteTask } from './utils/taskFunctions';
+//  Gets initial data (I assume its to emulate getting data from a database)
+import initialData from './initialData';
 
+console.log(initialData);
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
