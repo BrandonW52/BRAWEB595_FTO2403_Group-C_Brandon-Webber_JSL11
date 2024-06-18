@@ -4,16 +4,14 @@
 //  Gets funtions from utils
 import {
   getTasks,
-  saveTasks,
   createNewTask,
   patchTask,
   putTask,
   deleteTask,
-} from "./utils/taskFunctions";
+} from "/utils/taskFunctions.js";
 //  Gets initial data (I assume its to emulate getting data from a database)
-import initialData from "./initialData";
+import { initialData } from "/initialData.js";
 
-console.log(initialData);
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
@@ -29,7 +27,23 @@ function initializeData() {
 }
 
 // TASK: Get elements from the DOM
-const elements = {};
+const elements = {
+  // headerBoardName: document.getElementById("header-board-name"),
+
+  filterDiv: document.getElementById("filterDiv"),
+
+  // columnDivs: document.getElementById(""),
+  // editTaskModal: document.getElementById(""),
+
+  hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
+  showSideBarBtn: document.getElementById("show-side-bar-btn"),
+
+  themeSwitch: document.getElementById("switch"),
+
+  createNewTaskBtn: document.getElementById("create-task-btn"),
+
+  modalWindow: document.getElementById("new-task-modal-window"),
+};
 
 let activeBoard = "";
 
