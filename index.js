@@ -226,7 +226,15 @@ function addTask(event) {
   }
 }
 
-function toggleSidebar(show) {}
+// Toggles the side nav bar, hides/displays the relevent toggle button
+function toggleSidebar(show) {
+  document.getElementById("side-bar-div").style.display = show
+    ? "block"
+    : "none";
+  document.getElementById("show-side-bar-btn").style.display = !show
+    ? "block"
+    : "none";
+}
 
 function toggleTheme() {}
 
