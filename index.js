@@ -28,11 +28,11 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
-  // headerBoardName: document.getElementById("header-board-name"),
+  headerBoardName: document.getElementById("header-board-name"),
 
   filterDiv: document.getElementById("filterDiv"),
 
-  // columnDivs: document.getElementById(""),
+  columnDivs: document.querySelectorAll(".column-div"),
   // editTaskModal: document.getElementById(""),
 
   hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
@@ -126,11 +126,11 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll(".board-btn").foreach((btn) => {
+  document.querySelectorAll(".board-btn").forEach((btn) => {
     if (btn.textContent === boardName) {
-      btn.add("active");
+      btn.classList.add("active");
     } else {
-      btn.remove("active");
+      btn.classList.remove("active");
     }
   });
 }
