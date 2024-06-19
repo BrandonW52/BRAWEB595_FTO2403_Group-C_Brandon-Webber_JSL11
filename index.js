@@ -40,7 +40,7 @@ const elements = {
 
   themeSwitch: document.getElementById("switch"),
 
-  createNewTaskBtn: document.getElementById("create-task-btn"),
+  createNewTaskBtn: document.getElementById("add-new-task-btn"),
 
   modalWindow: document.getElementById("new-task-modal-window"),
 };
@@ -215,7 +215,13 @@ function addTask(event) {
   event.preventDefault();
 
   //Assign user input to the task object
-  const task = {};
+  const task = {
+    title: document.getElementById("title-input").value,
+    description: document.getElementById("title-input").value,
+    status: document.getElementById("select-status").value,
+    board: activeBoard,
+  };
+
   const newTask = createNewTask(task);
   if (newTask) {
     addTaskToUI(newTask);
@@ -243,7 +249,6 @@ function toggleTheme() {
 
   // Changes logo theme
   let branding = document.getElementById("logo");
-  console.log(branding.src);
 
   // Toggle the src and alt attributes based on the current logo
   const isThemeDark = branding.src.endsWith("logo-dark.svg");
