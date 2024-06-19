@@ -236,7 +236,24 @@ function toggleSidebar(show) {
     : "none";
 }
 
-function toggleTheme() {}
+// Toggles between dark mode and light mode
+function toggleTheme() {
+  // Changes the root colour theme
+  document.body.classList.toggle("light-theme");
+
+  // Changes logo theme
+  let branding = document.getElementById("logo");
+  console.log(branding.src);
+
+  // Toggle the src and alt attributes based on the current logo
+  const isThemeDark = branding.src.endsWith("logo-dark.svg");
+  // Image src
+  branding.src = isThemeDark
+    ? "./assets/logo-light.svg"
+    : "./assets/logo-dark.svg";
+  // Image alt
+  branding.alt = isThemeDark ? "logo-light" : "logo-dark";
+}
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
