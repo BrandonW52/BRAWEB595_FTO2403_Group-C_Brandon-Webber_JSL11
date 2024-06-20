@@ -33,7 +33,8 @@ const elements = {
   filterDiv: document.getElementById("filterDiv"),
 
   columnDivs: document.querySelectorAll(".column-div"),
-  // editTaskModal: document.getElementById(""),
+
+  editTaskModal: document.querySelector(".edit-task-modal-window"),
 
   hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
@@ -137,8 +138,9 @@ function styleActiveBoard(boardName) {
 
 function addTaskToUI(task) {
   const column = document.querySelector(
-    '.column-div[data-status="${task.status}"]'
+    `.column-div[data-status="${task.status}"]`
   );
+
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
     return;
@@ -159,7 +161,7 @@ function addTaskToUI(task) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute("data-task-id", task.id);
 
-  tasksContainer.appendChild();
+  tasksContainer.appendChild(taskElement);
 }
 
 function setupEventListeners() {
@@ -235,11 +237,14 @@ function addTask(event) {
 // Toggles the side nav bar, hides/displays the relevent toggle button
 function toggleSidebar(show) {
   document.getElementById("side-bar-div").style.display = show
-    ? "block"
+    ? "flex"
     : "none";
   document.getElementById("show-side-bar-btn").style.display = !show
-    ? "block"
+    ? "flex"
     : "none";
+
+  // Save user prefrance to local storage
+  localStorage.setItem("showSideBar", show);
 }
 
 // Toggles between dark mode and light mode
@@ -258,28 +263,58 @@ function toggleTheme() {
     : "./assets/logo-dark.svg";
   // Image alt
   branding.alt = isThemeDark ? "logo-light" : "logo-dark";
+
+  localStorage.setItem("light-theme", isThemeDark ? "enabled" : "disabled");
 }
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
+  document.getElementById("edit-task-title-input").value = task.title;
+  document.getElementById("edit-task-desc-input").value = task.description;
+  document.getElementById("edit-select-status").value = task.status;
 
   // Get button elements from the task modal
+  const saveTaskChangesBtn = document.getElementById("save-task-changes-btn");
+  const deleteTaskBtn = document.getElementById("delete-task-btn");
 
   // Call saveTaskChanges upon click of Save Changes button
+  saveTaskChangesBtn.addEventListener("click", () => {
+    console.log(task);
+    saveTaskChanges(task.id);
+  });
 
   // Delete task using a helper function and close the task modal
+  deleteTaskBtn.addEventListener("click", () => {
+    deleteTask(task.id);
+    toggleModal(false, elements.editTaskModal);
+    refreshTasksUI();
+  });
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
+  const editedTitle = document.getElementById("edit-task-title-input").value;
+  const editedDescription = document.getElementById(
+    "edit-task-desc-input"
+  ).value;
+  const editedStatus = document.getElementById("edit-select-status").value;
 
   // Create an object with the updated task details
+  const editedTask = {
+    id: taskId,
+    title: editedTitle,
+    description: editedDescription,
+    status: editedStatus,
+    board: activeBoard,
+  };
 
   // Update task using a hlper functoin
+  putTask(taskId, editedTask);
 
   // Close the modal and refresh the UI to reflect the changes
+  toggleModal(false, elements.editTaskModal);
 
   refreshTasksUI();
 }
