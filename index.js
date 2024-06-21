@@ -272,7 +272,6 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveTaskChangesBtn.addEventListener("click", () => {
-    console.log(task);
     saveTaskChanges(task.id);
   });
 
